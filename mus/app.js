@@ -11,6 +11,8 @@ var users = require('./routes/users');
 
 var app = express();
 
+var mongoose = require("mongoose")
+mongoose.connect("mongodb://localhost/fivepage")
 // view engine setup
 app.engine('ejs',require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
