@@ -1,12 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var Hero = require("../models/Hero").Hero
-var menu = []
+var Hero = require("../models/hero").Hero
 
-Hero.find(null,{_id:0,title:1,nick:1},function(err,result){
- if (err) throw err;
- menu = result
-})
+
 
 router.get('/hero/:nick' ,function(req,res,next){
 Hero.findOne({"nick":req.params.nick},
@@ -16,8 +12,7 @@ function(err,result){
  res.render('hero', {
  title: hero.title,
  picture: hero.avatar,
- about: hero.desc,
- menu:menu
+ about: hero.desc
  })
 })
 });
@@ -34,8 +29,7 @@ router.get("/",function(req,res,next){
      pictureh3: "images/am.jpg",
      pictureh4: "images/placebo.jpg",
      pictureh5: "images/21p.jpg",
-     about: "Imagine Dragons (дословно «Вообрази драконов») — американская инди-рок группа, образованная в Лас-Вегасе в 2008 году. Стали известны после выпуска дебютного студийного альбома Night Visions в сентябре 2012 года. Американский журнал Billboard назвал их самыми яркими новыми звёздами 2013 года[8], а журнал Rolling Stone назвал их сингл «Radioactive» самым большим рок-хитом года[9].",
-menu:menu
+     about: "Imagine Dragons (дословно «Вообрази драконов») — американская инди-рок группа, образованная в Лас-Вегасе в 2008 году. Стали известны после выпуска дебютного студийного альбома Night Visions в сентябре 2012 года. Американский журнал Billboard назвал их самыми яркими новыми звёздами 2013 года[8], а журнал Rolling Stone назвал их сингл «Radioactive» самым большим рок-хитом года[9]."
      })
 })
 //

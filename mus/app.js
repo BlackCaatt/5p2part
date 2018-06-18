@@ -10,7 +10,8 @@ var app = express();
 var mongoose = require("mongoose")
 mongoose.connect("mongodb://localhost/fivepage")
 var session = require("express-session")
-var Hero = require("./models/Hero").Hero
+var Hero = require("./models/hero").Hero
+var menu = require('./middleware/didNavigation');
 // view engine setup
 app.engine('ejs',require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
@@ -40,15 +41,7 @@ app.use(session({
 
 
 
-app.use(function(req,res,next){
- res.locals.navigation = []
- Hero.find(null,{_id:0,title:
-1,nick:1},function(err,result){
- if(err) throw err
- res.locals.navigation = result
- next()
- })
-})
+app.use(menu);
 
 
 app.use('/', index);

@@ -1,6 +1,6 @@
 var mongoose = require("mongoose")
 mongoose.connect("mongodb://localhost/fivepage")
-var Hero = require("./models/Hero.js").Hero
+var Hero = require("./models/hero.js").Hero
 var data = require("./data.js").data
 var async = require("async")
 async.series([

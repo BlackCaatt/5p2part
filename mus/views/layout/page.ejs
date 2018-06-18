@@ -16,16 +16,7 @@
           </div>
 
           <ul class="nav navbar-nav" id="tabs">
-            <% if(menu){
-menu.forEach(function(item){
-%>
-<li><a href="/hero/<%= item.nick %>"><%= item.title
-%></a></li>
-<%
-})}
-%>
-
-
+          
 <% if(typeof navigation == 'object' && navigation){
  navigation.forEach(function(item){
  %>
