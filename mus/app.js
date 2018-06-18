@@ -11,7 +11,10 @@ var mongoose = require("mongoose")
 mongoose.connect("mongodb://localhost/fivepage")
 var session = require("express-session")
 var Hero = require("./models/hero").Hero
+
 var menu = require('./middleware/didNavigation');
+var user = require('./middleware/loadUser');
+
 // view engine setup
 app.engine('ejs',require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
@@ -42,6 +45,7 @@ app.use(session({
 
 
 app.use(menu);
+app.use(user);
 
 
 app.use('/', index);

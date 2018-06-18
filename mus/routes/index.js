@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Hero = require("../models/hero").Hero
+var User = require("./../models/User").User
 
 
 
@@ -31,7 +32,43 @@ router.get("/",function(req,res,next){
      pictureh5: "images/21p.jpg",
      about: "Imagine Dragons (дословно «Вообрази драконов») — американская инди-рок группа, образованная в Лас-Вегасе в 2008 году. Стали известны после выпуска дебютного студийного альбома Night Visions в сентябре 2012 года. Американский журнал Billboard назвал их самыми яркими новыми звёздами 2013 года[8], а журнал Rolling Stone назвал их сингл «Radioactive» самым большим рок-хитом года[9]."
      })
-})
+});
+
+
+/* GET auth page. */
+router.get('/logreg', function(req, res, next) {
+ res.render('logreg');
+});
+
+/* POST auth page. */
+router.post('/logreg', function(req, res, next) {
+ var username = req.body.username
+ var password = req.body.password
+ User.findOne({username:username},function(err,user){
+ if(err) return next(err)
+if(user){
+  //res.send('Пользователя нашли')
+ if(user.checkPassword(password)){
+ //res.send('Пароль правильный')
+ req.session.user = user
+ res.redirect('/')
+ } else {
+ //res.send('Пароль НЕ правильный')
+ res.redirect('/')
+}
+ } else {
+   //res.send('Пользователя не нашли');
+  var user = new User({username:username,password:password})
+  user.save(function(err,user){
+   if(err) return next(err)
+   res.session.user = user._id
+   res.redirect('/')
+  })
+ }
+ })
+});
+
+
 //
 // /* Страница Imagine Dragons */
 // router.get("/ig",function(req,res,next){
