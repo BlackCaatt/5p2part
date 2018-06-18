@@ -2,10 +2,11 @@ var express = require('express');
 var router = express.Router();
 var Hero = require("../models/hero").Hero
 var User = require("./../models/User").User
+var checkAuth = require("./../middleware/checkAuth.js")
 
 
 
-router.get('/hero/:nick' ,function(req,res,next){
+router.get('/hero/:nick', checkAuth, function(req,res,next){
 Hero.findOne({"nick":req.params.nick},
 function(err,result){
  if (err) throw err
@@ -37,7 +38,7 @@ router.get("/",function(req,res,next){
 
 /* GET auth page. */
 router.get('/logreg', function(req, res, next) {
- res.render('logreg');
+ res.render('logreg',{error:null});
 });
 
 /* POST auth page. */
@@ -53,8 +54,8 @@ if(user){
  req.session.user = user
  res.redirect('/')
  } else {
- //res.send('Пароль НЕ правильный')
- res.redirect('/logreg')
+   //res.send('Пароль НЕ правильный')
+   res.render('logreg',{error:"Неверный пароль"});
 }
  } else {
    //res.send('Пользователя не нашли');
@@ -67,6 +68,13 @@ if(user){
   })
  }
  })
+});
+
+/* POST logout. */
+router.post('/logout',
+function(req, res, next) {
+ req.session.destroy()
+ res.redirect('/')
 });
 
 
