@@ -25,7 +25,9 @@ function(err,result){
 
 /* GET home page. */
 router.get("/",function(req,res,next){
+  req.session.greeting = "Hi!!!"
   res.render('homepage',{
+    counter:req.session.counter,
      title:"Музыкальные группы:",
      pictureh1: "images/ig.jpg",
      pictureh2: "images/muse.jpg",

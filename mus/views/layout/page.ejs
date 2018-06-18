@@ -25,6 +25,14 @@ menu.forEach(function(item){
 })}
 %>
 
+
+<% if(typeof navigation == 'object' && navigation){
+ navigation.forEach(function(item){
+ %>
+ <li><a href="/hero/<%= item.nick %>"><%= item.title%></a></li>
+ <%
+ })}
+ %>
     </ul>
         </div>
       </nav>

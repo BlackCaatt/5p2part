@@ -4,15 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-
 var index = require('./routes/index');
 var users = require('./routes/users');
-
 var app = express();
-
 var mongoose = require("mongoose")
 mongoose.connect("mongodb://localhost/fivepage")
+var session = require("express-session")
+var Hero = require("./models/Hero").Hero
 // view engine setup
 app.engine('ejs',require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +24,32 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname,'bower_components')));
+
+
+var MongoStore = require('connect-mongo')(session);
+
+app.use(session({
+ secret: "VinniIsHero",
+ cookie:{maxAge:60*1000},
+ store: new MongoStore({mongooseConnection:mongoose.connection})
+}))
+
+// app.use(function(req,res,next){
+//  req.session.counter = req.session.counter +1 || 1
+// })
+
+
+
+app.use(function(req,res,next){
+ res.locals.navigation = []
+ Hero.find(null,{_id:0,title:
+1,nick:1},function(err,result){
+ if(err) throw err
+ res.locals.navigation = result
+ next()
+ })
+})
+
 
 app.use('/', index);
 app.use('/users', users);
