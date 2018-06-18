@@ -54,14 +54,15 @@ if(user){
  res.redirect('/')
  } else {
  //res.send('Пароль НЕ правильный')
- res.redirect('/')
+ res.redirect('/logreg')
 }
  } else {
    //res.send('Пользователя не нашли');
   var user = new User({username:username,password:password})
   user.save(function(err,user){
    if(err) return next(err)
-   res.session.user = user._id
+   req.session.user = user
+   //res.session.user = user._id
    res.redirect('/')
   })
  }
