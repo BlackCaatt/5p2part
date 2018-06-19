@@ -24,14 +24,13 @@ function(err,result){
 router.get("/",function(req,res,next){
   req.session.greeting = "Hi!!!"
   res.render('homepage',{
-    counter:req.session.counter,
-     title:"Музыкальные группы:",
-     pictureh1: "images/ig.jpg",
-     pictureh2: "images/muse.jpg",
-     pictureh3: "images/am.jpg",
-     pictureh4: "images/placebo.jpg",
-     pictureh5: "images/21p.jpg",
-     about: "Imagine Dragons (дословно «Вообрази драконов») — американская инди-рок группа, образованная в Лас-Вегасе в 2008 году. Стали известны после выпуска дебютного студийного альбома Night Visions в сентябре 2012 года. Американский журнал Billboard назвал их самыми яркими новыми звёздами 2013 года[8], а журнал Rolling Stone назвал их сингл «Radioactive» самым большим рок-хитом года[9]."
+      counter:req.session.counter,
+       title:"Музыкальные группы:",
+       pictureh1: "images/ig.jpg",
+       pictureh2: "images/muse.jpg",
+       pictureh3: "images/am.jpg",
+       pictureh4: "images/placebo.jpg",
+       pictureh5: "images/21p.jpg"      
      })
 });
 

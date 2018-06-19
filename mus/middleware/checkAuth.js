@@ -1,7 +1,7 @@
 module.exports = function(req,res,next){
 //if(!req.session.user_id)
  if(!req.session.user){
- res.redirect("/")
+     res.redirect("/")
  }
  next()
 }

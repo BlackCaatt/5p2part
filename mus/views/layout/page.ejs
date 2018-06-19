@@ -15,25 +15,22 @@
             <a class="navbar-brand" href="/">It's music time</a>
           </div>
           <ul class="nav navbar-nav" id="tabs">
-<% if(typeof navigation == 'object' && navigation){
- navigation.forEach(function(item){
- %>
- <li><a href="/hero/<%= item.nick %>"><%= item.title%></a></li>
- <%
- })}
- %>
-    </ul>
+            <% if(typeof navigation == 'object' && navigation){
+             navigation.forEach(function(item){
+             %>
+             <li><a href="/hero/<%= item.nick %>"><%= item.title%></a></li>
+             <%
+             })}
+             %>
+           </ul>
     <ul class="nav navbar-nav navbar-right">
-      <%if(user){%>
-<form action="/logout"
-method="post">
- <li><button type="submit"
-class="btn btn-link">Выйти</
-button></li>
+        <%if(user){%>
+  <form action="/logout" method="post">
+   <li><button type="submit" class="btn btn-link">Выйти</button></li>
 </form>
         <% } else { %>
- <li><a href="/logreg">Войти</a></li>
- <% } %>
+     <li><a href="/logreg">Войти</a></li>
+     <% } %>
 </ul>
         </div>
       </nav>
